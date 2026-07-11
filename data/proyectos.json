@@ -62,6 +62,13 @@
       "imagen": "images/parkspot.jpg",
       "link": "",
       "tags": ["Leaflet", "Firebase"]
+    },
+    {
+      "titulo": "E-commerce Website Design",
+      "descripcion": "Proyecto de diseño de una tienda online: interfaz, flujo de compra y sistema visual completo.",
+      "imagen": "images/ecomweb.jpg",
+      "link": "",
+      "tags": ["Diseño UI/UX", "E-commerce"]
     }
   ],
   "proyectos_videojuegos": [
@@ -88,13 +95,6 @@
     }
   ],
   "proyectos_diseno": [
-    {
-      "titulo": "E-commerce Website Design",
-      "descripcion": "Proyecto de diseño de una tienda online: interfaz, flujo de compra y sistema visual completo.",
-      "imagen": "images/ecommerce-design.jpg",
-      "link": "",
-      "tags": ["Diseño UI/UX", "E-commerce"]
-    },
     {
       "titulo": "El Cofre del Druida",
       "descripcion": "Escaparate de objetos de fantasía y rol para Instagram: fichas de ítems ilustradas con descripciones narrativas.",
