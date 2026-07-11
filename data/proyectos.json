@@ -31,7 +31,7 @@
     {
       "titulo": "La Mallorquina",
       "descripcion": "Tienda online completa: catálogo de producto, carrito y pasarela de pago para un comercio real.",
-      "imagen": "images/la-mallorquina.jpg",
+      "imagen": "images/lamallorquina.jpg",
       "link": "",
       "tags": ["E-commerce", "Fullstack"]
     },
@@ -68,21 +68,21 @@
     {
       "titulo": "Dont die",
       "descripcion": "Mini demo de videojuego pensada para público infantil.",
-      "imagen": "images/dont-die.jpg",
+      "imagen": "images/dontdie.jpg",
       "link": "",
       "tags": ["Videojuegos", "Público infantil"]
     },
     {
       "titulo": "Ron y Gloria: Resacón en el Galeón Oscuro",
       "descripcion": "Videojuego desarrollado como proyecto de máster de FP.",
-      "imagen": "images/ron-y-gloria.jpg",
+      "imagen": "images/ronygloria.jpg",
       "link": "",
       "tags": ["Videojuegos", "Trabajo de máster"]
     },
     {
       "titulo": "Montserrat i les bèsties màgiques",
       "descripcion": "Proyecto presentado en el concurso Retrobarcelona.",
-      "imagen": "images/montserrat-besties.jpg",
+      "imagen": "images/montserrat.jpg",
       "link": "",
       "tags": ["Videojuegos", "Retrobarcelona"]
     }
