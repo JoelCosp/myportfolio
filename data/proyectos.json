@@ -59,7 +59,7 @@
     {
       "titulo": "ParkSpot",
       "descripcion": "Localizador de plazas de parking multi-vehículo con mapa interactivo en tiempo real.",
-      "imagen": "images/parkspot.jpg",
+      "imagen": "images/parkspot.png",
       "link": "https://devfrontaltech.github.io/wimc/index.html",
       "tags": ["Leaflet", "Firebase"]
     },
