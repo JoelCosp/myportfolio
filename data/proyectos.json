@@ -96,11 +96,39 @@
   ],
   "proyectos_diseno": [
     {
-      "titulo": "El Cofre del Druida",
-      "descripcion": "Escaparate de objetos de fantasía y rol para Instagram: fichas de ítems ilustradas con descripciones narrativas.",
-      "imagen": "images/cofre-druida.jpg",
+      "titulo": "Cartel publicitario",
+      "descripcion": "",
+      "imagen": "images/carnestoltes.png",
       "link": "",
-      "tags": ["Diseño UI", "Ilustración", "Narrativa"]
-    }
+      "tags": ["Diseño", "Ilustración", "Narrativa"]
+    },
+    {
+      "titulo": "Cartel publicitario",
+      "descripcion": "",
+      "imagen": "images/femcami.jpg",
+      "link": "",
+      "tags": ["Diseño", "Ilustración", "Narrativa"]
+    },
+    {
+      "titulo": "Cartel publicitario",
+      "descripcion": "",
+      "imagen": "images/postercontrol.png",
+      "link": "",
+      "tags": ["Diseño", "Ilustración", "Narrativa"]
+    },
+    {
+      "titulo": "Cartel publicitario",
+      "descripcion": "",
+      "imagen": "images/triptico.png",
+      "link": "",
+      "tags": ["Diseño", "Ilustración", "Narrativa"]
+    },
+    {
+      "titulo": "Tríptico",
+      "descripcion": "",
+      "imagen": "images/youwe.jpg",
+      "link": "",
+      "tags": ["Diseño", "Ilustración", "Narrativa"]
+    },
   ]
 }
