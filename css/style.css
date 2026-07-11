@@ -250,6 +250,16 @@ h1,h2,h3{
 .about__text{ color: var(--ink-dim); font-size: 1.02rem; margin:0; }
 
 /* ============ HABILIDADES ============ */
+.skills__block{ margin-bottom: 2.25rem; }
+.skills__block:last-child{ margin-bottom: 0; }
+.skills__block-title{
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 1rem;
+}
 .skills__grid{
   display:flex;
   flex-wrap:wrap;
