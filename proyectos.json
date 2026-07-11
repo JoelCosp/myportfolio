@@ -1,0 +1,41 @@
+{
+  "proyectos_programacion": [
+    {
+      "titulo": "FudiCode",
+      "descripcion": "Cartas digitales para restaurantes vía código QR. Cuatro plantillas visuales, pagos con Stripe y panel de gestión en tiempo real con Firebase.",
+      "imagen": "images/fudicode.jpg",
+      "link": "https://fudicode.es",
+      "tags": ["Firebase", "Stripe", "Cloudflare Pages"]
+    },
+    {
+      "titulo": "StayRules",
+      "descripcion": "Normas de la casa por QR para anfitriones de Airbnb. Flujo de pago completo, emails automáticos y panel de administración.",
+      "imagen": "images/stayrules.jpg",
+      "link": "",
+      "tags": ["Firebase", "Stripe", "Resend"]
+    },
+    {
+      "titulo": "PawTag",
+      "descripcion": "Placas de identificación para perros con QR. Automatización con formularios, hoja de cálculo y generación de páginas dinámicas por mascota.",
+      "imagen": "images/pawtag.jpg",
+      "link": "",
+      "tags": ["n8n", "GitHub", "Stripe"]
+    },
+    {
+      "titulo": "ParkSpot",
+      "descripcion": "Localizador de plazas de parking multi-vehículo con mapa interactivo en tiempo real.",
+      "imagen": "images/parkspot.jpg",
+      "link": "",
+      "tags": ["Leaflet", "Firebase"]
+    }
+  ],
+  "proyectos_diseno": [
+    {
+      "titulo": "El Cofre del Druida",
+      "descripcion": "Escaparate de objetos de fantasía y rol para Instagram: fichas de ítems ilustradas con descripciones narrativas.",
+      "imagen": "images/cofre-druida.jpg",
+      "link": "",
+      "tags": ["Diseño UI", "Ilustración", "Narrativa"]
+    }
+  ]
+}
