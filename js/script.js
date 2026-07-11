@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const CATEGORY_LABELS = {
     proyectos_programacion: { label: 'Programación', className: 'programacion' },
+    proyectos_videojuegos: { label: 'Videojuegos & RV', className: 'videojuegos' },
     proyectos_diseno: { label: 'Diseño', className: 'diseno' }
   };
 
