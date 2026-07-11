@@ -44,13 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
       .join('');
 
     const hasLink = project.link && project.link.trim().length > 0;
+    const hasImage = project.imagen && project.imagen.trim().length > 0;
 
     card.innerHTML = `
       <div class="project-card__media">
-        <img src="${escapeHtml(project.imagen)}" alt="${escapeHtml(project.titulo)}"
-             loading="lazy"
-             onerror="this.style.display='none'; this.parentElement.querySelector('.project-card__fallback').style.display='flex';">
-        <div class="project-card__fallback" style="display:none">Imagen no disponible</div>
+        ${hasImage
+          ? `<img src="${escapeHtml(project.imagen)}" alt="${escapeHtml(project.titulo)}"
+                 loading="lazy"
+                 onerror="this.style.display='none'; this.parentElement.querySelector('.project-card__fallback').style.display='flex';">
+             <div class="project-card__fallback" style="display:none">🖼️ Imagen no disponible</div>`
+          : `<div class="project-card__fallback" style="display:flex">🖼️ Imagen no disponible</div>`}
       </div>
       <div class="project-card__body">
         <p class="project-card__cat project-card__cat--${meta.className}">${meta.label}</p>
