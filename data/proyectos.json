@@ -3,7 +3,7 @@
     {
       "titulo": "Tanoka Home",
       "descripcion": "Proyecto de I+D para controlar y optimizar las facturas de la luz del hogar mediante inteligencia artificial.",
-      "imagen": "images/tanokahome.pnh",
+      "imagen": "images/tanokahome.png",
       "link": "",
       "tags": ["I+D", "IA Agent", "React Native", "MySQL"]
     },
