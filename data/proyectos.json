@@ -5,26 +5,26 @@
       "descripcion": "Proyecto de I+D para controlar y optimizar las facturas de la luz del hogar mediante inteligencia artificial.",
       "imagen": "images/tanokahome.png",
       "link": "",
-      "tags": ["I+D", "IA Agent", "React Native", "MySQL"]
+      "tags": ["I+D", "IA Agent", "React Native", "MySQL", "ApiREST"]
     },
     {
       "titulo": "CRTM",
       "descripcion": "Proyecto de I+D para visualizar en tiempo real las incidencias del transporte público de Madrid.",
       "imagen": "images/crtm.webp",
       "link": "",
-      "tags": ["I+D", "Visualización de datos"]
+      "tags": ["I+D", "VueJS", "MySQL", "ApiREST"]
     },
     {
       "titulo": "FudiCode",
       "descripcion": "Cartas digitales para restaurantes vía código QR. Cuatro plantillas visuales, pagos con Stripe y panel de gestión en tiempo real con Firebase.",
-      "imagen": "images/fudicode.jpg",
+      "imagen": "images/fudicode.png",
       "link": "https://fudicode.es",
       "tags": ["Firebase", "Stripe", "Cloudflare Pages"]
     },
     {
       "titulo": "StayRules",
       "descripcion": "Normas de la casa por QR para anfitriones de Airbnb. Flujo de pago completo, emails automáticos y panel de administración.",
-      "imagen": "images/stayrules.jpg",
+      "imagen": "images/stayrules.png",
       "link": "",
       "tags": ["Firebase", "Stripe", "Resend"]
     },
