@@ -53,7 +53,7 @@
       "titulo": "PawTag",
       "descripcion": "Placas de identificación para perros con QR. Automatización con formularios, hoja de cálculo y generación de páginas dinámicas por mascota.",
       "imagen": "images/pawtag.jpg",
-      "link": "",
+      "link": "https://devfrontaltech.github.io/pagina-chapas/",
       "tags": ["n8n", "GitHub", "Stripe"]
     },
     {
