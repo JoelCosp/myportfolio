@@ -9,6 +9,7 @@
   --accent-dim: rgba(255,176,32,0.14);
   --teal: #4FD1C5;
   --teal-dim: rgba(79,209,197,0.14);
+  --violet: #9B8CFF;
   --line: rgba(245,243,238,0.12);
 
   --font-display: 'Space Grotesk', sans-serif;
@@ -339,6 +340,7 @@ h1,h2,h3{
   text-transform: uppercase;
 }
 .project-card__cat--diseno{ color: var(--teal); }
+.project-card__cat--videojuegos{ color: var(--violet); }
 .project-card__cat--programacion{ color: var(--accent); }
 .project-card__title{ font-size:1.3rem; margin: 0.5rem 0 0.65rem; }
 .project-card__desc{ color: var(--ink-dim); font-size:0.92rem; margin: 0 0 1.1rem; }
