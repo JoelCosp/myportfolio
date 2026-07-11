@@ -1,22 +1,51 @@
-# Portfolio — Momo
+# Joel Cosp — Portfolio
 
-Portfolio estático, 100% responsive, con secciones de proyectos dinámicas
-cargadas desde `data/proyectos.json`.
+Programador full stack y diseñador gráfico. Construyo software de principio
+a fin (arquitectura, código, integraciones) y diseño la identidad visual que
+lo acompaña. Un perfil completo, sin depender de terceros para cerrar el
+círculo entre lo técnico y lo visual.
 
-## Estructura
+**Contacto**
+- 📧 joelc456789@gmail.com
+- 📱 657 809 586
+- 💻 [github.com/devfrontaltech](https://github.com/devfrontaltech)
+
+## Habilidades
+
+**Desarrollo full stack**
+HTML / CSS / JavaScript · TypeScript · React · Node.js · Firebase (Auth +
+Firestore) · SQL / NoSQL · APIs REST · Stripe · Cloudflare Pages · Git &
+GitHub · Automatización (n8n / Make) · IA generativa & prompting · Agentes
+IA / integraciones LLM
+
+**Diseño gráfico**
+Adobe Illustrator · Adobe Photoshop · Adobe InDesign · Figma · Creative
+Cloud · Diseño UI/UX · Branding & identidad visual
+
+## Proyectos
+
+Consulta la sección **Proyectos** del portfolio (`index.html`), donde se
+listan de forma dinámica desde `data/proyectos.json`, filtrables por
+Programación y Diseño.
+
+---
+
+## Documentación técnica del repositorio
+
+### Estructura
 
 ```
 index.html
 css/style.css
 js/script.js
-data/proyectos.json   ← aquí añades/editas proyectos
-images/                ← sube aquí las imágenes que referencia el JSON
+data/proyectos.json   ← contenido dinámico de proyectos
+images/                ← imágenes que referencia el JSON
 ```
 
-## Añadir un proyecto nuevo
+### Añadir un proyecto nuevo
 
 Edita `data/proyectos.json` y añade un objeto dentro de
-`proyectos_programacion` o `proyectos_diseno` (o crea una nueva clave, ver abajo):
+`proyectos_programacion` o `proyectos_diseno`:
 
 ```json
 {
@@ -28,9 +57,11 @@ Edita `data/proyectos.json` y añade un objeto dentro de
 }
 ```
 
-Si `link` está vacío (`""`), la tarjeta muestra "Próximamente" en vez de un enlace.
+- Si `link` está vacío (`""`), la tarjeta muestra "Próximamente".
+- Si `imagen` está vacía o la ruta falla, la tarjeta muestra automáticamente
+  "🖼️ Imagen no disponible" sin romper el diseño.
 
-## Añadir una categoría nueva (ej. `proyectos_diseno` → otra más)
+### Añadir una categoría nueva
 
 1. Añade la clave nueva en `data/proyectos.json`, ej. `proyectos_freelance`.
 2. En `js/script.js`, añade una entrada en `CATEGORY_LABELS`:
@@ -42,36 +73,27 @@ Si `link` está vacío (`""`), la tarjeta muestra "Próximamente" en vez de un e
    <button class="filter-btn" data-filter="proyectos_freelance" role="tab" aria-selected="false">Freelance</button>
    ```
 
-Todo lo demás (renderizado, filtros, animaciones) es automático.
+### Ver en local
 
-## Imágenes
+El `fetch()` del JSON necesita que el sitio se sirva por http, no abriendo
+`index.html` con doble clic:
 
-Sube las imágenes a la carpeta `images/` y referencia la ruta relativa en el
-JSON (ej. `"imagen": "images/fudicode.jpg"`). Si una imagen falla, la tarjeta
-muestra automáticamente un aviso de "Imagen no disponible" sin romper el diseño.
-
-## Ver en local
-
-El `fetch()` del JSON necesita que el sitio se sirva por http, no abriendo el
-`index.html` directamente con doble clic. Opciones rápidas:
-
-```bash
+\`\`\`bash
 # Con Python
 python3 -m http.server 8000
 
 # Con Node
 npx serve .
-```
+\`\`\`
 
 Luego abre `http://localhost:8000`.
 
-## Desplegar
+### Desplegar
 
-Compatible tal cual con Cloudflare Pages (arrastra la carpeta o conéctala a
-tu repo de GitHub, sin build command, output directory = `/`).
+Compatible tal cual con Cloudflare Pages: sin build command, output
+directory = `/` (raíz del repo).
 
-## Personalizar
+### Personalizar
 
 - **Colores/tipografías**: variables en `:root` al inicio de `css/style.css`.
 - **Textos** (hero, sobre mí, contacto): directamente en `index.html`.
-- **Email / redes**: sección `#contacto` en `index.html`.
