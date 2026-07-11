@@ -8,7 +8,6 @@ círculo entre lo técnico y lo visual.
 **Contacto**
 - 📧 joelc456789@gmail.com
 - 📱 657 809 586
-- 💻 [github.com/devfrontaltech](https://github.com/devfrontaltech)
 
 ## Habilidades
 
