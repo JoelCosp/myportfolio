@@ -8,9 +8,9 @@
       "tags": ["I+D", "IA Agent", "React Native", "MySQL"]
     },
     {
-      "titulo": "TMB",
+      "titulo": "CRTM",
       "descripcion": "Proyecto de I+D para visualizar en tiempo real las incidencias del transporte público de Madrid.",
-      "imagen": "images/tmb.jpg",
+      "imagen": "images/crtm.webp",
       "link": "",
       "tags": ["I+D", "Visualización de datos"]
     },
