@@ -3,9 +3,9 @@
     {
       "titulo": "Tanoka Home",
       "descripcion": "Proyecto de I+D para controlar y optimizar las facturas de la luz del hogar mediante inteligencia artificial.",
-      "imagen": "images/tanoka-home.jpg",
+      "imagen": "images/tanokahome.pnh",
       "link": "",
-      "tags": ["I+D", "IA", "Fullstack"]
+      "tags": ["I+D", "IA Agent", "React Native", "MySQL"]
     },
     {
       "titulo": "TMB",
