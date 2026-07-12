@@ -45,7 +45,7 @@
     {
       "titulo": "Chat por voz con agente IA",
       "descripcion": "Proyecto de I+D: asistente conversacional por voz basado en un agente de IA capaz de mantener una conversación natural.",
-      "imagen": "images/chat-voz-ia.jpg",
+      "imagen": "images/agent.png",
       "link": "",
       "tags": ["I+D", "IA", "Agentes", "Voz"]
     },
