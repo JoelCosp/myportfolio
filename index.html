@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es" data-mode="dev">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joel Cosp — Full Stack Developer & Diseñador Gráfico</title>
+<meta name="description" content="Portfolio de Joel Cosp: desarrollador full stack y diseñador gráfico.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS — dos identidades, un mismo esqueleto
+   ============================================================ */
+:root{
+  --bg: #0B0E14;
+  --bg-elevated: #12161F;
+  --bg-elevated-2: #171C27;
+  --text: #E7EAF0;
+  --text-dim: rgba(231,234,240,0.62);
+  --accent: #FFB020;
+  --accent-2: #5EEAD4;
+  --line: rgba(231,234,240,0.12);
+  --radius: 14px;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-accent-style: normal;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+  --ease: cubic-bezier(.16,.84,.44,1);
+}
+
+html[data-mode="design"]{
+  --bg: #F5F1FA;
+  --bg-elevated: #FFFFFF;
+  --bg-elevated-2: #FBF9FE;
+  --text: #241B2E;
+  --text-dim: rgba(36,27,46,0.62);
+  --accent: #7C5CFF;
+  --accent-2: #FF4D6D;
+  --line: rgba(36,27,46,0.12);
+  --font-display: 'Fraunces', serif;
+  --font-accent-style: italic;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  transition: background 0.5s var(--ease), color 0.5s var(--ease);
+  overflow-x:hidden;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; margin:0; padding:0; }
+:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+
+h1,h2,h3{ font-family: var(--font-display); font-weight:600; margin:0; letter-spacing:-0.01em; transition: font-family 0.4s ease; }
+
+.eyebrow{
+  font-family: var(--font-mono);
+  font-size:0.78rem;
+  letter-spacing:0.08em;
+  color: var(--accent);
+  text-transform:lowercase;
+  margin:0 0 0.9rem 0;
+  transition: color 0.4s ease;
+}
+
+/* ============ TEXTURA DE GRANO ============ */
+.grain{
+  position:fixed; inset:0; z-index:3; pointer-events:none;
+  opacity:0.035; mix-blend-mode:overlay;
+}
+@media (prefers-reduced-motion: reduce){ .grain{ opacity:0.02; } }
+
+/* ============ LUZ AMBIENTAL QUE SIGUE AL CURSOR ============ */
+.ambient-glow{
+  position:fixed; top:0; left:0;
+  width:560px; height:560px; margin:-280px 0 0 -280px;
+  border-radius:50%;
+  pointer-events:none; z-index:2;
+  filter: blur(50px);
+  opacity:0.16;
+  background: radial-gradient(circle, var(--accent), transparent 65%);
+  transition: opacity 0.5s ease, background 0.5s ease, filter 0.5s ease;
+  will-change: transform;
+}
+html[data-mode="design"] .ambient-glow{
+  opacity:0.28;
+  filter: blur(70px);
+  background: radial-gradient(circle, var(--accent-2), var(--accent) 55%, transparent 75%);
+}
+@media (prefers-reduced-motion: reduce){ .ambient-glow{ display:none; } }
+
+/* ============ HEADER + TOGGLE DE MODO ============ */
+.site-header{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.1rem clamp(1.25rem,5vw,3.5rem);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom:1px solid var(--line);
+  transition: background 0.5s ease, border-color 0.5s ease;
+}
+.logo{ font-family: var(--font-mono); font-weight:600; font-size:0.92rem; letter-spacing:0.04em; display:flex; align-items:center; gap:0.5rem; }
+.logo__dot{ width:7px; height:7px; border-radius:50%; background: var(--accent); transition: background 0.4s ease; }
+
+.nav-desktop{ display:flex; align-items:center; gap:2rem; }
+.nav-desktop a{ font-family:var(--font-mono); font-size:0.84rem; color:var(--text-dim); transition: color 0.2s ease; }
+.nav-desktop a:hover{ color:var(--text); }
+
+.mode-switch{
+  position:relative;
+  display:flex;
+  background: var(--bg-elevated);
+  border:1px solid var(--line);
+  border-radius:100px;
+  padding:3px;
+  font-family:var(--font-mono);
+  font-size:0.74rem;
+}
+.mode-switch__indicator{
+  position:absolute; top:3px; left:3px;
+  width:calc(50% - 3px); height:calc(100% - 6px);
+  background: var(--accent);
+  border-radius:100px;
+  transition: transform 0.35s var(--ease), background 0.4s ease;
+  z-index:0;
+}
+html[data-mode="design"] .mode-switch__indicator{ transform: translateX(100%); }
+.mode-switch button{
+  position:relative; z-index:1;
+  background:none; border:none; cursor:pointer;
+  padding:0.5rem 1rem; color:var(--text-dim);
+  font-family:inherit; font-size:inherit;
+  transition: color 0.25s ease;
+}
+html[data-mode="dev"] .mode-switch button[data-set="dev"],
+html[data-mode="design"] .mode-switch button[data-set="design"]{ color:#0B0E14; font-weight:600; }
+html[data-mode="design"] .mode-switch button[data-set="design"]{ color:#FFFFFF; }
+
+.nav-toggle{ display:none; flex-direction:column; justify-content:center; gap:5px; width:34px; height:34px; background:none; border:none; cursor:pointer; }
+.nav-toggle span{ width:100%; height:2px; background:var(--text); }
+.nav-mobile{ display:none; flex-direction:column; position:sticky; top:64px; z-index:49; background:var(--bg-elevated); border-bottom:1px solid var(--line); }
+.nav-mobile a{ padding:1rem clamp(1.25rem,5vw,3.5rem); font-family:var(--font-mono); font-size:0.9rem; color:var(--text-dim); border-bottom:1px solid var(--line); }
+.nav-mobile.is-open{ display:flex; }
+
+/* ============ HERO ============ */
+.hero{ position:relative; min-height:92vh; display:flex; align-items:center; padding:5rem clamp(1.25rem,5vw,3.5rem) 3rem; }
+.hero__inner{ max-width:900px; margin:0 auto; width:100%; }
+
+.hero-copy{ display:none; }
+html[data-mode="dev"] .hero-copy--dev{ display:block; }
+html[data-mode="design"] .hero-copy--design{ display:block; }
+
+.hero__title{ font-size:clamp(2.4rem,6vw,4.2rem); line-height:1.05; margin-bottom:1.4rem; overflow:hidden; }
+.hero__title span{ display:block; opacity:0; transform:translateY(100%); animation: rise 0.8s var(--ease) forwards; }
+.hero__title span:nth-child(2){ animation-delay:0.08s; }
+html[data-mode="design"] .hero__title{ font-style: var(--font-accent-style); font-weight:500; }
+@keyframes rise{ to{ opacity:1; transform:translateY(0); } }
+@media (prefers-reduced-motion: reduce){ .hero__title span{ animation:none; opacity:1; transform:none; } }
+
+.hero__lead{ font-size:clamp(1rem,1.6vw,1.15rem); color:var(--text-dim); max-width:52ch; margin:0 0 2.25rem; }
+.hero__actions{ display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:3rem; }
+
+.btn{ position:relative; font-family:var(--font-mono); font-size:0.85rem; padding:0.9rem 1.7rem; border-radius:100px; border:1px solid transparent; display:inline-block; transition: transform 0.2s var(--ease), border-color 0.2s ease, background 0.3s ease, color 0.3s ease; }
+.btn--primary{ background:var(--accent); color:#0B0E14; font-weight:600; }
+html[data-mode="design"] .btn--primary{ color:#fff; }
+.btn--ghost{ border-color:var(--line); color:var(--text); }
+.btn--ghost:hover{ border-color:var(--accent); color:var(--accent); }
+
+/* terminal (modo dev) */
+.terminal{ background:var(--bg-elevated); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; max-width:560px; box-shadow:0 30px 60px -30px rgba(0,0,0,0.6); }
+.terminal__bar{ display:flex; gap:6px; padding:0.7rem 0.9rem; background:var(--bg-elevated-2); border-bottom:1px solid var(--line); }
+.terminal__bar span{ width:10px; height:10px; border-radius:50%; background:var(--line); }
+.terminal__body{ padding:1.4rem 1.5rem 1.6rem; font-family:var(--font-mono); font-size:0.86rem; min-height:150px; }
+.terminal__line{ margin:0 0 0.5rem; color:var(--text-dim); }
+.terminal__line .prompt{ color:var(--accent); margin-right:0.5rem; }
+.terminal__line .out{ color:var(--accent-2); }
+.terminal__cursor{ display:inline-block; width:7px; height:1.1em; background:var(--accent); vertical-align:text-bottom; animation: blink 1s steps(1) infinite; margin-left:2px; }
+@keyframes blink{ 50%{ opacity:0; } }
+
+/* bloque visual (modo diseño) */
+.design-mark{ display:flex; align-items:center; gap:1.5rem; max-width:560px; }
+.design-mark__orb{ width:96px; height:96px; border-radius:38% 62% 61% 39% / 45% 40% 60% 55%; background: conic-gradient(from 120deg, var(--accent), var(--accent-2), var(--accent)); flex-shrink:0; animation: morph 9s ease-in-out infinite; }
+@keyframes morph{ 0%,100%{ border-radius:38% 62% 61% 39% / 45% 40% 60% 55%; } 50%{ border-radius:58% 42% 40% 60% / 55% 62% 38% 45%; } }
+.design-mark__text{ font-family:var(--font-mono); font-size:0.84rem; color:var(--text-dim); }
+@media (prefers-reduced-motion: reduce){ .design-mark__orb{ animation:none; } }
+
+/* ============ SECTIONS ============ */
+.section{ max-width:1180px; margin:0 auto; padding:clamp(3.5rem,8vw,6rem) clamp(1.25rem,5vw,3.5rem); position:relative; z-index:1; }
+.section__head{ margin-bottom:2.75rem; }
+.section__head h2{ font-size:clamp(1.7rem,3.4vw,2.4rem); max-width:22ch; }
+html[data-mode="design"] .section__head h2{ font-style:italic; font-weight:500; }
+
+.reveal{ opacity:0; transform:translateY(22px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.is-visible{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
+
+/* ============ SOBRE MI ============ */
+.about__grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(1.25rem,3vw,2.5rem); }
+.about__text{ color:var(--text-dim); font-size:1.02rem; margin:0; }
+
+/* ============ HABILIDADES ============ */
+.skills__wrap{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(1.25rem,3vw,2rem); }
+.skills__block{ padding:1.6rem 1.7rem; border-radius:var(--radius); border:1px solid var(--line); transition: border-color 0.4s ease, box-shadow 0.4s ease; }
+html[data-mode="dev"] .skills__block--dev{ border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset; }
+html[data-mode="design"] .skills__block--design{ border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset; }
+.skills__block-title{ font-family:var(--font-mono); font-size:0.82rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.06em; margin:0 0 1rem; }
+.skills__grid{ display:flex; flex-wrap:wrap; gap:0.7rem; }
+.skill-chip{ font-family:var(--font-mono); font-size:0.82rem; padding:0.55rem 1rem; border:1px solid var(--line); border-radius:8px; color:var(--text-dim); background:var(--bg-elevated); transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+.skill-chip:hover{ border-color:var(--accent); color:var(--text); transform:translateY(-2px); }
+
+/* ============ PROYECTOS ============ */
+.filters{ position:relative; display:inline-flex; gap:0.3rem; margin-bottom:2.25rem; padding:4px; background:var(--bg-elevated); border:1px solid var(--line); border-radius:100px; }
+.filter-indicator{ position:absolute; top:4px; left:4px; height:calc(100% - 8px); background:var(--accent); border-radius:100px; transition: transform 0.35s var(--ease), width 0.35s var(--ease); z-index:0; }
+.filter-btn{ position:relative; z-index:1; font-family:var(--font-mono); font-size:0.82rem; background:none; border:none; color:var(--text-dim); padding:0.55rem 1.15rem; border-radius:100px; cursor:pointer; transition: color 0.25s ease; white-space:nowrap; }
+.filter-btn.is-active{ color:#0B0E14; font-weight:600; }
+html[data-mode="design"] .filter-btn.is-active{ color:#fff; }
+
+.projects__grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(1.25rem,3vw,2rem); perspective:1200px; }
+.project-card{ position:relative; background:var(--bg-elevated); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; transition: border-color 0.3s ease, transform 0.1s linear, box-shadow 0.3s ease; transform-style:preserve-3d; will-change:transform; }
+.project-card:hover{ border-color:var(--accent); box-shadow:0 20px 45px -25px rgba(0,0,0,0.5); }
+.project-card__media{ aspect-ratio:16/10; background:linear-gradient(135deg,var(--bg-elevated),var(--bg-elevated-2)); position:relative; overflow:hidden; }
+.project-card__media img{ width:100%; height:100%; object-fit:cover; transition: transform 0.5s var(--ease); }
+.project-card:hover .project-card__media img{ transform:scale(1.05); }
+.project-card__fallback{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-dim); text-align:center; padding:1rem; }
+.project-card__body{ padding:1.4rem 1.5rem 1.6rem; }
+.project-card__cat{ font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; }
+.project-card__cat--diseno{ color:var(--accent-2); }
+.project-card__cat--videojuegos{ color:#9B8CFF; }
+.project-card__cat--programacion{ color:var(--accent); }
+.project-card__title{ font-size:1.28rem; margin:0.5rem 0 0.65rem; }
+.project-card__desc{ color:var(--text-dim); font-size:0.92rem; margin:0 0 1.1rem; }
+.project-card__tags{ display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1.1rem; }
+.project-card__tag{ font-family:var(--font-mono); font-size:0.68rem; padding:0.25rem 0.55rem; border-radius:5px; background:var(--bg); color:var(--text-dim); }
+.project-card__link{ font-family:var(--font-mono); font-size:0.82rem; color:var(--accent); display:inline-flex; align-items:center; gap:0.35rem; }
+.project-card__link.is-disabled{ color:var(--text-dim); pointer-events:none; }
+
+/* ============ CONTACTO ============ */
+.section--contact{ text-align:center; }
+.section--contact .section__head{ text-align:center; }
+.section--contact .section__head h2{ margin:0 auto; }
+.contact__frame{ max-width:620px; margin:0 auto; padding:3rem clamp(1.5rem,5vw,3rem); border:1px solid var(--line); border-radius:var(--radius); background:var(--bg-elevated); }
+.contact__lead{ color:var(--text-dim); margin:0 0 1.75rem; }
+.contact__links{ display:flex; justify-content:center; gap:1.75rem; flex-wrap:wrap; font-family:var(--font-mono); }
+.contact__link{ color:var(--text); border-bottom:1px solid var(--line); padding-bottom:3px; transition: color 0.2s ease, border-color 0.2s ease; }
+.contact__link:hover{ color:var(--accent); border-color:var(--accent); }
+
+/* ============ FOOTER ============ */
+.site-footer{ text-align:center; padding:2.5rem 1.25rem 3rem; font-family:var(--font-mono); font-size:0.78rem; color:var(--text-dim); position:relative; z-index:1; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:860px){
+  .about__grid{ grid-template-columns:1fr; }
+  .skills__wrap{ grid-template-columns:1fr; }
+  .projects__grid{ grid-template-columns:1fr; }
+}
+@media (max-width:720px){
+  .nav-desktop{ display:none; }
+  .nav-toggle{ display:flex; }
+  .hero{ min-height:auto; padding:6.5rem 1.25rem 3rem; }
+  .terminal{ max-width:100%; }
+  .design-mark{ flex-direction:column; align-items:flex-start; gap:1rem; }
+}
+</style>
+</head>
+<body>
+
+<svg class="grain" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(#noise)"/>
+</svg>
+<div class="ambient-glow" id="ambientGlow" aria-hidden="true"></div>
+
+<header class="site-header">
+  <a href="#inicio" class="logo"><span class="logo__dot"></span>JOEL COSP</a>
+
+  <nav class="nav-desktop" aria-label="Navegación principal">
+    <a href="#sobre-mi">Sobre mí</a>
+    <a href="#habilidades">Habilidades</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <div class="mode-switch" role="tablist" aria-label="Cambiar modo de visualización">
+    <span class="mode-switch__indicator" aria-hidden="true"></span>
+    <button data-set="dev" role="tab" aria-selected="true">&lt;/&gt; Dev</button>
+    <button data-set="design" role="tab" aria-selected="false">✺ Diseño</button>
+  </div>
+
+  <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-mobile">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<nav id="nav-mobile" class="nav-mobile" aria-label="Navegación móvil">
+  <a href="#sobre-mi">Sobre mí</a>
+  <a href="#habilidades">Habilidades</a>
+  <a href="#proyectos">Proyectos</a>
+  <a href="#contacto">Contacto</a>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section id="inicio" class="hero">
+    <div class="hero__inner">
+
+      <div class="hero-copy hero-copy--dev">
+        <p class="eyebrow">// modo desarrollador</p>
+        <h1 class="hero__title"><span>Construyo con lógica,</span><span>despliego con criterio.</span></h1>
+        <p class="hero__lead">Full stack, automatizaciones e IA aplicada a productos reales — sin atajos ni humo.</p>
+        <div class="hero__actions">
+          <a href="#proyectos" class="btn btn--primary magnetic">Ver proyectos</a>
+          <a href="#contacto" class="btn btn--ghost magnetic">Hablemos</a>
+        </div>
+        <div class="terminal">
+          <div class="terminal__bar"><span></span><span></span><span></span></div>
+          <div class="terminal__body" id="terminalBody"></div>
+        </div>
+      </div>
+
+      <div class="hero-copy hero-copy--design">
+        <p class="eyebrow">portfolio / 2026</p>
+        <h1 class="hero__title"><span>Diseño con intención,</span><span>cuido cada detalle.</span></h1>
+        <p class="hero__lead">Identidad visual, UI/UX y dirección de arte — con la misma exigencia que el código.</p>
+        <div class="hero__actions">
+          <a href="#proyectos" class="btn btn--primary magnetic">Ver proyectos</a>
+          <a href="#contacto" class="btn btn--ghost magnetic">Hablemos</a>
+        </div>
+        <div class="design-mark">
+          <div class="design-mark__orb" aria-hidden="true"></div>
+          <p class="design-mark__text">Illustrator · Photoshop · InDesign · Figma<br>Branding & identidad visual</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SOBRE MI -->
+  <section id="sobre-mi" class="section">
+    <div class="section__head reveal">
+      <p class="eyebrow">sobre mí</p>
+      <h2>Dos oficios, un mismo estándar de calidad.</h2>
+    </div>
+    <div class="about__grid">
+      <p class="about__text reveal">
+        Soy programador full stack y diseñador gráfico. Trabajo en ambos lados
+        de un proyecto digital: la arquitectura, la lógica y el código que lo
+        hacen funcionar, y la identidad visual que lo hace reconocible. Esa
+        doble perspectiva me permite entregar productos coherentes de arriba
+        a abajo, sin depender de terceros para cerrar el círculo.
+      </p>
+      <p class="about__text reveal">
+        Soy metódico, exigente conmigo mismo y me tomo en serio cada encargo,
+        sea grande o pequeño. Me interesa especialmente el terreno donde el
+        desarrollo se cruza con la inteligencia artificial: automatizaciones,
+        agentes e integraciones que hacen que el software trabaje solo.
+      </p>
+    </div>
+  </section>
+
+  <!-- HABILIDADES -->
+  <section id="habilidades" class="section">
+    <div class="section__head reveal">
+      <p class="eyebrow">habilidades</p>
+      <h2>Con qué construyo.</h2>
+    </div>
+    <div class="skills__wrap">
+      <div class="skills__block skills__block--dev reveal">
+        <p class="skills__block-title">Desarrollo full stack</p>
+        <ul class="skills__grid">
+          <li class="skill-chip">HTML / CSS / JavaScript</li>
+          <li class="skill-chip">TypeScript</li>
+          <li class="skill-chip">React</li>
+          <li class="skill-chip">Node.js</li>
+          <li class="skill-chip">Firebase (Auth + Firestore)</li>
+          <li class="skill-chip">SQL / NoSQL</li>
+          <li class="skill-chip">APIs REST</li>
+          <li class="skill-chip">Stripe</li>
+          <li class="skill-chip">Cloudflare Pages</li>
+          <li class="skill-chip">Git & GitHub</li>
+          <li class="skill-chip">Automatización (n8n / Make)</li>
+          <li class="skill-chip">IA generativa & prompting</li>
+          <li class="skill-chip">Agentes IA / integraciones LLM</li>
+        </ul>
+      </div>
+      <div class="skills__block skills__block--design reveal">
+        <p class="skills__block-title">Diseño gráfico</p>
+        <ul class="skills__grid">
+          <li class="skill-chip">Adobe Illustrator</li>
+          <li class="skill-chip">Adobe Photoshop</li>
+          <li class="skill-chip">Adobe InDesign</li>
+          <li class="skill-chip">Figma</li>
+          <li class="skill-chip">Creative Cloud</li>
+          <li class="skill-chip">Diseño UI/UX</li>
+          <li class="skill-chip">Branding & identidad visual</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos" class="section">
+    <div class="section__head reveal">
+      <p class="eyebrow">proyectos</p>
+      <h2>Lo que he construido.</h2>
+    </div>
+
+    <div class="filters" role="tablist" aria-label="Filtrar proyectos">
+      <span class="filter-indicator" aria-hidden="true"></span>
+      <button class="filter-btn is-active" data-filter="todos" role="tab" aria-selected="true">Todos</button>
+      <button class="filter-btn" data-filter="proyectos_programacion" role="tab" aria-selected="false">Programación</button>
+      <button class="filter-btn" data-filter="proyectos_diseno" role="tab" aria-selected="false">Diseño</button>
+      <button class="filter-btn" data-filter="proyectos_videojuegos" role="tab" aria-selected="false">Videojuegos & RV</button>
+    </div>
+
+    <div id="proyectos-grid" class="projects__grid" aria-live="polite"></div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="section section--contact">
+    <div class="section__head reveal">
+      <p class="eyebrow">contacto</p>
+      <h2>¿Hablamos de tu proyecto?</h2>
+    </div>
+    <div class="contact__frame reveal">
+      <p class="contact__lead">Escríbeme, respondo siempre.</p>
+      <div class="contact__links">
+        <a href="mailto:joelc456789@gmail.com" class="contact__link">joelc456789@gmail.com</a>
+        <a href="tel:+34657809586" class="contact__link">657 809 586</a>
+        <a href="https://github.com/devfrontaltech" target="_blank" rel="noopener" class="contact__link">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer"><p>© 2026 Joel Cosp. Construido con HTML, CSS y JS.</p></footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const html = document.documentElement;
+
+  /* ---- Mode switch (dev / diseño) ---- */
+  const modeButtons = document.querySelectorAll('.mode-switch button');
+  const savedMode = localStorage.getItem('portfolio-mode');
+  if (savedMode === 'dev' || savedMode === 'design') {
+    html.dataset.mode = savedMode;
+    modeButtons.forEach(b => b.setAttribute('aria-selected', String(b.dataset.set === savedMode)));
+  }
+  modeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      html.dataset.mode = btn.dataset.set;
+      localStorage.setItem('portfolio-mode', btn.dataset.set);
+      modeButtons.forEach(b => b.setAttribute('aria-selected', String(b === btn)));
+      if (btn.dataset.set === 'dev') runTypingSequence();
+    });
+  });
+
+  /* ---- Menú móvil ---- */
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMobile = document.getElementById('nav-mobile');
+  navToggle.addEventListener('click', () => {
+    const open = navMobile.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded', String(open));
+  });
+  navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navMobile.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  /* ---- Luz ambiental que sigue al cursor ---- */
+  if (!reducedMotion) {
+    const glow = document.getElementById('ambientGlow');
+    let tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty;
+    window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+    (function loop(){
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      glow.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* ---- Terminal typing effect (modo dev) ---- */
+  const terminalLines = [
+    { prompt: '$', text: 'whoami' },
+    { out: 'Joel Cosp — full stack developer & diseñador gráfico' },
+    { prompt: '$', text: 'especialidad' },
+    { out: 'APIs, automatización, agentes de IA' },
+    { prompt: '$', text: 'estado' },
+    { out: 'disponible para nuevos proyectos' }
+  ];
+  const terminalBody = document.getElementById('terminalBody');
+  let typingRunning = false;
+
+  function runTypingSequence() {
+    if (typingRunning) return;
+    typingRunning = true;
+    terminalBody.innerHTML = '';
+    if (reducedMotion) {
+      terminalLines.forEach(line => terminalBody.appendChild(renderLine(line, true)));
+      typingRunning = false;
+      return;
+    }
+    let i = 0;
+    function next() {
+      if (i >= terminalLines.length) { typingRunning = false; return; }
+      const line = terminalLines[i];
+      const el = renderLine(line, line.out !== undefined);
+      terminalBody.appendChild(el);
+      if (line.out !== undefined) {
+        i++; setTimeout(next, 260);
+      } else {
+        const span = el.querySelector('.typed');
+        const full = line.text;
+        let c = 0;
+        const cursor = document.createElement('span');
+        cursor.className = 'terminal__cursor';
+        el.appendChild(cursor);
+        (function type(){
+          span.textContent = full.slice(0, c);
+          c++;
+          if (c <= full.length) { setTimeout(type, 45); }
+          else { i++; setTimeout(next, 200); }
+        })();
+      }
+    }
+    next();
+  }
+
+  function renderLine(line, isOut) {
+    const p = document.createElement('p');
+    p.className = 'terminal__line';
+    if (isOut) {
+      p.innerHTML = `<span class="out">${escapeHtml(line.out)}</span>`;
+    } else {
+      p.innerHTML = `<span class="prompt">${line.prompt}</span><span class="typed"></span>`;
+    }
+    return p;
+  }
+
+  runTypingSequence();
+
+  /* ---- Botones magnéticos ---- */
+  if (!reducedMotion) {
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width / 2;
+        const y = e.clientY - r.top - r.height / 2;
+        btn.style.transform = `translate(${x * 0.25}px, ${y * 0.35}px)`;
+      });
+      btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+    });
+  }
+
+  /* ---- Tilt en tarjetas de proyecto ---- */
+  function attachTilt(card) {
+    if (reducedMotion) return;
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(900px) rotateY(${px * 6}deg) rotateX(${-py * 6}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  }
+
+  /* ---- Proyectos: carga desde JSON ---- */
+  const grid = document.getElementById('proyectos-grid');
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const filterIndicator = document.querySelector('.filter-indicator');
+  let dataset = {};
+
+  const CATEGORY_LABELS = {
+    proyectos_programacion: { label: 'Programación', className: 'programacion' },
+    proyectos_diseno: { label: 'Diseño', className: 'diseno' },
+    proyectos_videojuegos: { label: 'Videojuegos & RV', className: 'videojuegos' }
+  };
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+  }
+
+  function buildCard(project, categoryKey) {
+    const meta = CATEGORY_LABELS[categoryKey] || { label: categoryKey, className: '' };
+    const card = document.createElement('article');
+    card.className = 'project-card reveal';
+    card.dataset.category = categoryKey;
+
+    const tagsHtml = (project.tags || []).map(t => `<span class="project-card__tag">${escapeHtml(t)}</span>`).join('');
+    const hasLink = project.link && project.link.trim().length > 0;
+    const hasImage = project.imagen && project.imagen.trim().length > 0;
+    const hasDesc = project.descripcion && project.descripcion.trim().length > 0;
+
+    card.innerHTML = `
+      <div class="project-card__media">
+        ${hasImage
+          ? `<img src="${escapeHtml(project.imagen)}" alt="${escapeHtml(project.titulo)}" loading="lazy"
+                 onerror="this.style.display='none'; this.parentElement.querySelector('.project-card__fallback').style.display='flex';">
+             <div class="project-card__fallback" style="display:none">🖼️ Imagen no disponible</div>`
+          : `<div class="project-card__fallback" style="display:flex">🖼️ Imagen no disponible</div>`}
+      </div>
+      <div class="project-card__body">
+        <p class="project-card__cat project-card__cat--${meta.className}">${meta.label}</p>
+        <h3 class="project-card__title">${escapeHtml(project.titulo)}</h3>
+        ${hasDesc ? `<p class="project-card__desc">${escapeHtml(project.descripcion)}</p>` : ''}
+        <div class="project-card__tags">${tagsHtml}</div>
+        ${hasLink
+          ? `<a class="project-card__link" href="${escapeHtml(project.link)}" target="_blank" rel="noopener">Abrir proyecto →</a>`
+          : `<span class="project-card__link is-disabled">Próximamente</span>`}
+      </div>`;
+    attachTilt(card);
+    return card;
+  }
+
+  function render(filter = 'todos') {
+    grid.innerHTML = '';
+    const categories = filter === 'todos' ? Object.keys(dataset) : [filter];
+    categories.forEach(key => (dataset[key] || []).forEach(p => grid.appendChild(buildCard(p, key))));
+    observeReveals();
+  }
+
+  function moveIndicator(btn) {
+    filterIndicator.style.width = btn.offsetWidth + 'px';
+    filterIndicator.style.transform = `translateX(${btn.offsetLeft - 4}px)`;
+  }
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-selected','false'); });
+      btn.classList.add('is-active'); btn.setAttribute('aria-selected','true');
+      moveIndicator(btn);
+      render(btn.dataset.filter);
+    });
+  });
+
+  window.addEventListener('resize', () => {
+    const active = document.querySelector('.filter-btn.is-active');
+    if (active) moveIndicator(active);
+  });
+
+  fetch('data/proyectos.json')
+    .then(res => { if (!res.ok) throw new Error('No se pudo cargar proyectos.json'); return res.json(); })
+    .then(json => {
+      dataset = json;
+      render('todos');
+      const active = document.querySelector('.filter-btn.is-active');
+      if (active) moveIndicator(active);
+    })
+    .catch(err => {
+      console.error(err);
+      grid.innerHTML = '<p style="color:var(--text-dim); font-family:var(--font-mono); font-size:0.85rem;">No se pudieron cargar los proyectos. Sirve este sitio con un servidor local o despliégalo para que el fetch funcione.</p>';
+    });
+
+  /* ---- Reveal on scroll ---- */
+  function observeReveals() {
+    const items = document.querySelectorAll('.reveal:not(.is-visible)');
+    if (!('IntersectionObserver' in window) || reducedMotion) {
+      items.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(el => io.observe(el));
+  }
+  observeReveals();
+});
+</script>
+</body>
+</html>
