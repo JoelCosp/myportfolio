@@ -75,6 +75,27 @@
     {
       "titulo": "Cartel publicitario",
       "descripcion": "",
+      "imagen": "images/trazos.png",
+      "link": "",
+      "tags": ["Diseño", "Ilustración", "Narrativa"]
+    },
+    {
+      "titulo": "Logotipo",
+      "descripcion": "",
+      "imagen": "images/aura.png",
+      "link": "",
+      "tags": ["Diseño", "Ilustración", "Identidad corporativa"]
+    },
+    {
+      "titulo": "Logotipo",
+      "descripcion": "",
+      "imagen": "images/naturae.png",
+      "link": "",
+      "tags": ["Diseño", "Ilustración", "Identidad corporativa"]
+    },
+    {
+      "titulo": "Cartel publicitario",
+      "descripcion": "",
       "imagen": "images/carnestoltes.png",
       "link": "",
       "tags": ["Diseño", "Ilustración", "Narrativa"]
