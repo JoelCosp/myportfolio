@@ -110,18 +110,25 @@
   ],
   "proyectos_videojuegos": [
     {
-      "titulo": "Dont die",
-      "descripcion": "Mini demo de videojuego pensada para público infantil.",
-      "imagen": "images/dontdie.jpg",
-      "link": "",
-      "tags": ["Videojuegos", "Público infantil"]
+      "titulo": "The Eternal Cycle: Shattered Elements",
+      "descripcion": "Videojuego desarrollado como proyecto de máster de FP.",
+      "imagen": "images/shattered.png",
+      "link": "https://bernat-el-ferrer.itch.io/the-eternal-cycle-shattered-elements",
+      "tags": ["Videojuegos", "Trabajo de máster"]
     },
     {
       "titulo": "Ron y Gloria: Resacón en el Galeón Oscuro",
       "descripcion": "Videojuego desarrollado como proyecto de máster de FP.",
       "imagen": "images/ronygloria.jpg",
-      "link": "",
+      "link": "https://bernat-el-ferrer.itch.io/resacon-en-el-galeon-oscuro",
       "tags": ["Videojuegos", "Trabajo de máster"]
+    },
+    {
+      "titulo": "Dont die",
+      "descripcion": "Mini demo de videojuego pensada para público infantil.",
+      "imagen": "images/dontdie.jpg",
+      "link": "",
+      "tags": ["Videojuegos", "Público infantil"]
     },
     {
       "titulo": "Montserrat i les bèsties màgiques",
