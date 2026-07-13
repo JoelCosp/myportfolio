@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joel Cosp — Full Stack Developer & Diseñador Gráfico</title>
+<meta name="description" content="Portfolio de Joel Cosp: desarrollador full stack y diseñador gráfico.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS — neobrutalista: bordes gruesos, sombra dura, pegatinas
+   ============================================================ */
+:root{
+  --bg: #FFFDF7;
+  --ink: #111111;
+  --ink-dim: rgba(17,17,17,0.68);
+  --yellow: #FFE45C;
+  --blue: #3D5AFE;
+  --pink: #FF3D81;
+  --lime: #B4FF3D;
+  --border: 3px solid var(--ink);
+  --shadow: 6px 6px 0 var(--ink);
+  --shadow-sm: 4px 4px 0 var(--ink);
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Work Sans', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body);
+  line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; margin:0; padding:0; }
+:focus-visible{ outline:3px solid var(--blue); outline-offset:2px; }
+h1,h2,h3{ font-family:var(--font-display); font-weight:400; text-transform:uppercase; margin:0; line-height:1.05; }
+
+.eyebrow{ font-family:var(--font-mono); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 1rem; }
+
+/* ============ HEADER ============ */
+.site-header{ position:sticky; top:0; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:1.1rem clamp(1.25rem,5vw,3rem); background:var(--bg); border-bottom:var(--border); }
+.logo{ font-family:var(--font-display); font-size:1.15rem; text-transform:uppercase; }
+.logo span{ background:var(--yellow); padding:0.1em 0.3em; border:2px solid var(--ink); display:inline-block; transform:rotate(-2deg); }
+.nav-desktop{ display:flex; align-items:center; gap:0.7rem; }
+.nav-desktop a{ font-family:var(--font-mono); font-size:0.78rem; text-transform:uppercase; padding:0.5rem 0.9rem; border:2.5px solid var(--ink); background:#fff; box-shadow:3px 3px 0 var(--ink); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.nav-desktop a:hover{ transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--ink); background:var(--yellow); }
+.nav-toggle{ display:none; flex-direction:column; justify-content:center; gap:5px; width:36px; height:36px; background:#fff; border:2.5px solid var(--ink); }
+.nav-toggle span{ width:60%; margin:0 auto; height:2.5px; background:var(--ink); }
+.nav-mobile{ display:none; flex-direction:column; background:var(--bg); border-bottom:var(--border); }
+.nav-mobile a{ padding:1rem clamp(1.25rem,5vw,3rem); font-family:var(--font-mono); font-size:0.85rem; text-transform:uppercase; border-bottom:2px solid var(--ink); }
+.nav-mobile.is-open{ display:flex; }
+
+/* ============ HERO ============ */
+.hero{ background:var(--yellow); border-bottom:var(--border); padding:5rem clamp(1.25rem,5vw,3.5rem) 4.5rem; position:relative; overflow:hidden; }
+.hero__inner{ max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1.2fr 1fr; gap:2.5rem; align-items:center; position:relative; z-index:2; }
+.hero__title{ font-size:clamp(2.6rem,6.5vw,4.6rem); margin-bottom:1.4rem; }
+.hero__title mark{ background:var(--pink); color:#fff; padding:0 0.2em; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+.hero__lead{ font-size:1.1rem; max-width:42ch; margin:0 0 2rem; font-family:var(--font-body); }
+.hero__actions{ display:flex; gap:1rem; flex-wrap:wrap; }
+
+.btn{ font-family:var(--font-mono); font-weight:700; font-size:0.85rem; text-transform:uppercase; padding:0.9rem 1.6rem; border:var(--border); box-shadow:var(--shadow-sm); background:#fff; display:inline-block; transition: transform 0.12s ease, box-shadow 0.12s ease; cursor:pointer; }
+.btn:hover{ transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ink); }
+.btn:active{ transform:translate(3px,3px); box-shadow:1px 1px 0 var(--ink); }
+.btn--primary{ background:var(--ink); color:var(--bg); }
+.btn--ghost{ background:#fff; }
+
+.hero__shapes{ position:relative; height:300px; display:flex; align-items:center; justify-content:center; }
+.shape{ position:absolute; border:3px solid var(--ink); }
+.shape--circle{ width:130px; height:130px; border-radius:50%; background:var(--blue); top:10%; left:10%; transform:rotate(-8deg); }
+.shape--square{ width:100px; height:100px; background:var(--pink); bottom:5%; right:15%; transform:rotate(12deg); }
+.shape--tri{ width:0; height:0; border-left:60px solid transparent; border-right:60px solid transparent; border-bottom:100px solid var(--lime); border-top:none; background:none; top:35%; right:0; transform:rotate(-6deg); }
+.sticker{ position:absolute; top:0; right:0; background:#fff; border:var(--border); box-shadow:var(--shadow-sm); padding:0.7rem 1rem; font-family:var(--font-mono); font-size:0.7rem; text-transform:uppercase; transform:rotate(6deg); text-align:center; }
+@media (max-width:760px){ .hero__shapes{ display:none; } }
+
+/* ============ SECTIONS ============ */
+.section{ max-width:1180px; margin:0 auto; padding:clamp(3.5rem,8vw,6rem) clamp(1.25rem,5vw,3.5rem); border-bottom:var(--border); }
+.section__head{ margin-bottom:2.75rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+.section__head h2{ font-size:clamp(1.8rem,3.8vw,2.6rem); }
+.section__num{ font-family:var(--font-mono); font-size:0.85rem; background:var(--ink); color:var(--bg); padding:0.35rem 0.7rem; }
+
+.reveal{ opacity:0; transform:translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal.is-visible{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
+
+/* ============ SOBRE MI ============ */
+.about__grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:clamp(1.5rem,4vw,3rem); align-items:start; }
+.about__text{ font-size:1.08rem; margin:0 0 1.2rem; }
+.about__card{ background:var(--lime); border:var(--border); box-shadow:var(--shadow); padding:1.6rem 1.8rem; transform:rotate(-1.5deg); }
+.about__card-title{ font-family:var(--font-mono); font-size:0.78rem; text-transform:uppercase; margin:0 0 0.9rem; }
+.about__stat{ display:flex; justify-content:space-between; padding:0.5rem 0; border-bottom:2px solid var(--ink); font-family:var(--font-mono); font-size:0.85rem; }
+.about__stat:last-child{ border-bottom:none; }
+
+/* ============ HABILIDADES ============ */
+.skills__wrap{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(1.5rem,3vw,2.5rem); }
+.skills__block-title{ display:inline-block; font-family:var(--font-mono); font-size:0.8rem; text-transform:uppercase; margin:0 0 1.2rem; padding:0.4rem 0.8rem; border:var(--border); box-shadow:var(--shadow-sm); }
+.skills__block--dev .skills__block-title{ background:var(--blue); color:#fff; }
+.skills__block--design .skills__block-title{ background:var(--pink); color:#fff; }
+.skills__grid{ display:flex; flex-wrap:wrap; gap:0.7rem; }
+.skill-chip{ font-family:var(--font-mono); font-size:0.8rem; padding:0.5rem 0.9rem; border:2.5px solid var(--ink); background:#fff; box-shadow:3px 3px 0 var(--ink); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.skill-chip:hover{ transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--ink); }
+
+/* ============ PROYECTOS ============ */
+.filters{ display:flex; flex-wrap:wrap; gap:0.7rem; margin-bottom:2.5rem; }
+.filter-btn{ font-family:var(--font-mono); font-size:0.78rem; text-transform:uppercase; background:#fff; border:var(--border); color:var(--ink); padding:0.55rem 1.1rem; box-shadow:var(--shadow-sm); cursor:pointer; transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease; }
+.filter-btn:hover{ transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ink); }
+.filter-btn.is-active{ background:var(--ink); color:var(--bg); transform:translate(3px,3px); box-shadow:1px 1px 0 var(--ink); }
+
+.projects__grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(1.75rem,3vw,2.5rem); }
+.project-card{ background:#fff; border:var(--border); box-shadow:var(--shadow); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.project-card:nth-child(3n+1){ transform:rotate(-1deg); }
+.project-card:nth-child(3n+2){ transform:rotate(1deg); }
+.project-card:nth-child(3n+3){ transform:rotate(-0.5deg); }
+.project-card:hover{ transform:translate(-3px,-3px) rotate(0deg); box-shadow:9px 9px 0 var(--ink); }
+.project-card__media{ aspect-ratio:16/10; border-bottom:var(--border); background:linear-gradient(135deg,#EFEADA,#FBF8EE); position:relative; overflow:hidden; }
+.project-card__media img{ width:100%; height:100%; object-fit:cover; }
+.project-card__fallback{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.74rem; color:var(--ink-dim); text-align:center; padding:1rem; }
+.project-card__body{ padding:1.4rem 1.5rem 1.6rem; }
+.project-card__cat{ display:inline-block; font-family:var(--font-mono); font-size:0.68rem; text-transform:uppercase; padding:0.25rem 0.6rem; border:2px solid var(--ink); margin-bottom:0.7rem; }
+.project-card__cat--programacion{ background:var(--blue); color:#fff; }
+.project-card__cat--diseno{ background:var(--pink); color:#fff; }
+.project-card__cat--videojuegos{ background:var(--lime); color:var(--ink); }
+.project-card__title{ font-size:1.25rem; margin:0 0 0.7rem; }
+.project-card__desc{ color:var(--ink-dim); font-size:0.93rem; margin:0 0 1.1rem; font-family:var(--font-body); }
+.project-card__tags{ display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1.2rem; }
+.project-card__tag{ font-family:var(--font-mono); font-size:0.66rem; padding:0.22rem 0.55rem; border:1.5px solid var(--ink); }
+.project-card__link{ font-family:var(--font-mono); font-size:0.82rem; text-transform:uppercase; display:inline-block; border:2.5px solid var(--ink); padding:0.45rem 0.9rem; box-shadow:3px 3px 0 var(--ink); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.project-card__link:hover{ transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--ink); background:var(--yellow); }
+.project-card__link.is-disabled{ color:var(--ink-dim); box-shadow:none; pointer-events:none; opacity:0.6; }
+
+/* ============ CONTACTO ============ */
+.contact{ background:var(--blue); border-bottom:none; }
+.contact .section__head h2, .contact .section__head .eyebrow{ color:#fff; }
+.contact__frame{ background:#fff; border:var(--border); box-shadow:var(--shadow); padding:2.5rem clamp(1.5rem,5vw,3rem); max-width:640px; }
+.contact__lead{ margin:0 0 1.6rem; font-weight:600; }
+.contact__links{ display:flex; flex-wrap:wrap; gap:1rem; font-family:var(--font-mono); font-size:0.9rem; }
+.contact__link{ border:2.5px solid var(--ink); padding:0.6rem 1rem; box-shadow:3px 3px 0 var(--ink); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.contact__link:hover{ transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--ink); background:var(--yellow); }
+
+/* ============ FOOTER ============ */
+.site-footer{ text-align:center; padding:2rem 1.25rem; font-family:var(--font-mono); font-size:0.76rem; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:900px){
+  .hero__inner{ grid-template-columns:1fr; }
+  .about__grid{ grid-template-columns:1fr; }
+  .skills__wrap{ grid-template-columns:1fr; }
+  .projects__grid{ grid-template-columns:1fr; }
+}
+@media (max-width:720px){
+  .nav-desktop{ display:none; }
+  .nav-toggle{ display:flex; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="#inicio" class="logo">JOEL <span>COSP</span></a>
+  <nav class="nav-desktop" aria-label="Navegación principal">
+    <a href="#sobre-mi">Sobre mí</a>
+    <a href="#habilidades">Habilidades</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+  <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-mobile">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<nav id="nav-mobile" class="nav-mobile" aria-label="Navegación móvil">
+  <a href="#sobre-mi">Sobre mí</a>
+  <a href="#habilidades">Habilidades</a>
+  <a href="#proyectos">Proyectos</a>
+  <a href="#contacto">Contacto</a>
+</nav>
+
+<section id="inicio" class="hero">
+  <div class="hero__inner">
+    <div>
+      <h1 class="hero__title">Escribo <mark>código</mark>.<br>Diseño <mark>marca</mark>.</h1>
+      <p class="hero__lead">Soy Joel Cosp: full stack developer y diseñador gráfico. Sin atajos, en ningún lado.</p>
+      <div class="hero__actions">
+        <a href="#proyectos" class="btn btn--primary">Ver proyectos</a>
+        <a href="#contacto" class="btn btn--ghost">Hablemos</a>
+      </div>
+    </div>
+    <div class="hero__shapes" aria-hidden="true">
+      <div class="shape shape--circle"></div>
+      <div class="shape shape--square"></div>
+      <div class="shape shape--tri"></div>
+      <div class="sticker">¡Disponible<br>para proyectos!</div>
+    </div>
+  </div>
+</section>
+
+<main>
+
+  <section id="sobre-mi" class="section">
+    <div class="section__head reveal"><span class="section__num">01</span><h2>Sobre mí</h2></div>
+    <div class="about__grid">
+      <div class="reveal">
+        <p class="about__text">Soy programador full stack y diseñador gráfico. Trabajo en ambos lados de un proyecto digital: la arquitectura, la lógica y el código que lo hacen funcionar, y la identidad visual que lo hace reconocible.</p>
+        <p class="about__text" style="margin-bottom:0;">Soy metódico y exigente conmigo mismo. Me interesa especialmente el cruce entre desarrollo e IA: automatizaciones, agentes e integraciones.</p>
+      </div>
+      <div class="about__card reveal">
+        <p class="about__card-title">Ficha rápida</p>
+        <div class="about__stat"><span>Disciplinas</span><span>Dev + Diseño</span></div>
+        <div class="about__stat"><span>Foco actual</span><span>IA & agentes</span></div>
+        <div class="about__stat"><span>Base</span><span>Cataluña, ES</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="habilidades" class="section">
+    <div class="section__head reveal"><span class="section__num">02</span><h2>Habilidades</h2></div>
+    <div class="skills__wrap">
+      <div class="skills__block skills__block--dev reveal">
+        <p class="skills__block-title">Desarrollo full stack</p>
+        <ul class="skills__grid">
+          <li class="skill-chip">HTML / CSS / JS</li>
+          <li class="skill-chip">TypeScript</li>
+          <li class="skill-chip">React</li>
+          <li class="skill-chip">Node.js</li>
+          <li class="skill-chip">Firebase</li>
+          <li class="skill-chip">SQL / NoSQL</li>
+          <li class="skill-chip">APIs REST</li>
+          <li class="skill-chip">Stripe</li>
+          <li class="skill-chip">Cloudflare Pages</li>
+          <li class="skill-chip">Git & GitHub</li>
+          <li class="skill-chip">n8n / Make</li>
+          <li class="skill-chip">IA generativa</li>
+          <li class="skill-chip">Agentes IA / LLM</li>
+        </ul>
+      </div>
+      <div class="skills__block skills__block--design reveal">
+        <p class="skills__block-title">Diseño gráfico</p>
+        <ul class="skills__grid">
+          <li class="skill-chip">Illustrator</li>
+          <li class="skill-chip">Photoshop</li>
+          <li class="skill-chip">InDesign</li>
+          <li class="skill-chip">Figma</li>
+          <li class="skill-chip">Creative Cloud</li>
+          <li class="skill-chip">Diseño UI/UX</li>
+          <li class="skill-chip">Branding</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="proyectos" class="section">
+    <div class="section__head reveal"><span class="section__num">03</span><h2>Proyectos</h2></div>
+    <div class="filters reveal" role="tablist" aria-label="Filtrar proyectos">
+      <button class="filter-btn is-active" data-filter="todos" role="tab" aria-selected="true">Todos</button>
+      <button class="filter-btn" data-filter="proyectos_programacion" role="tab" aria-selected="false">Programación</button>
+      <button class="filter-btn" data-filter="proyectos_diseno" role="tab" aria-selected="false">Diseño</button>
+      <button class="filter-btn" data-filter="proyectos_videojuegos" role="tab" aria-selected="false">Videojuegos & RV</button>
+    </div>
+    <div id="proyectos-grid" class="projects__grid" aria-live="polite"></div>
+  </section>
+
+  <section id="contacto" class="section contact">
+    <div class="section__head reveal"><span class="section__num" style="background:#fff; color:var(--ink);">04</span><h2>Contacto</h2></div>
+    <div class="contact__frame reveal">
+      <p class="contact__lead">Escríbeme, respondo siempre.</p>
+      <div class="contact__links">
+        <a href="mailto:joelc456789@gmail.com" class="contact__link">joelc456789@gmail.com</a>
+        <a href="tel:+34657809586" class="contact__link">657 809 586</a>
+        <a href="https://github.com/devfrontaltech" target="_blank" rel="noopener" class="contact__link">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer"><p>© 2026 Joel Cosp. Construido con HTML, CSS y JS.</p></footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMobile = document.getElementById('nav-mobile');
+  navToggle.addEventListener('click', () => {
+    const open = navMobile.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded', String(open));
+  });
+  navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navMobile.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  const grid = document.getElementById('proyectos-grid');
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  let dataset = {};
+
+  const CATEGORY_LABELS = {
+    proyectos_programacion: { label: 'Programación', className: 'programacion' },
+    proyectos_diseno: { label: 'Diseño', className: 'diseno' },
+    proyectos_videojuegos: { label: 'Videojuegos & RV', className: 'videojuegos' }
+  };
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+  }
+
+  function buildCard(project, categoryKey) {
+    const meta = CATEGORY_LABELS[categoryKey] || { label: categoryKey, className: '' };
+    const card = document.createElement('article');
+    card.className = 'project-card reveal';
+
+    const tagsHtml = (project.tags || []).map(t => `<span class="project-card__tag">${escapeHtml(t)}</span>`).join('');
+    const hasLink = project.link && project.link.trim().length > 0;
+    const hasImage = project.imagen && project.imagen.trim().length > 0;
+    const hasDesc = project.descripcion && project.descripcion.trim().length > 0;
+
+    card.innerHTML = `
+      <div class="project-card__media">
+        ${hasImage
+          ? `<img src="${escapeHtml(project.imagen)}" alt="${escapeHtml(project.titulo)}" loading="lazy"
+                 onerror="this.style.display='none'; this.parentElement.querySelector('.project-card__fallback').style.display='flex';">
+             <div class="project-card__fallback" style="display:none">🖼️ Imagen no disponible</div>`
+          : `<div class="project-card__fallback" style="display:flex">🖼️ Imagen no disponible</div>`}
+      </div>
+      <div class="project-card__body">
+        <span class="project-card__cat project-card__cat--${meta.className}">${meta.label}</span>
+        <h3 class="project-card__title">${escapeHtml(project.titulo)}</h3>
+        ${hasDesc ? `<p class="project-card__desc">${escapeHtml(project.descripcion)}</p>` : ''}
+        <div class="project-card__tags">${tagsHtml}</div>
+        ${hasLink
+          ? `<a class="project-card__link" href="${escapeHtml(project.link)}" target="_blank" rel="noopener">Abrir →</a>`
+          : `<span class="project-card__link is-disabled">Próximamente</span>`}
+      </div>`;
+    return card;
+  }
+
+  function render(filter = 'todos') {
+    grid.innerHTML = '';
+    const categories = filter === 'todos' ? Object.keys(dataset) : [filter];
+    categories.forEach(key => (dataset[key] || []).forEach(p => grid.appendChild(buildCard(p, key))));
+    observeReveals();
+  }
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-selected','false'); });
+      btn.classList.add('is-active'); btn.setAttribute('aria-selected','true');
+      render(btn.dataset.filter);
+    });
+  });
+
+  fetch('data/proyectos.json')
+    .then(res => { if (!res.ok) throw new Error('No se pudo cargar proyectos.json'); return res.json(); })
+    .then(json => { dataset = json; render('todos'); })
+    .catch(err => {
+      console.error(err);
+      grid.innerHTML = '<p style="font-family:var(--font-mono); font-size:0.85rem;">No se pudieron cargar los proyectos. Sirve este sitio con un servidor local o despliégalo para que el fetch funcione.</p>';
+    });
+
+  function observeReveals() {
+    const items = document.querySelectorAll('.reveal:not(.is-visible)');
+    if (!('IntersectionObserver' in window) || reducedMotion) {
+      items.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12 });
+    items.forEach(el => io.observe(el));
+  }
+  observeReveals();
+});
+</script>
+</body>
+</html>
