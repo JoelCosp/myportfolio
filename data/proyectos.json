@@ -4,7 +4,7 @@
       "titulo": "Tanoka Home",
       "descripcion": "Proyecto de I+D para controlar y optimizar las facturas de la luz del hogar mediante inteligencia artificial.",
       "imagen": "images/tanokahome.png",
-      "link": "",
+      "link": "https://play.google.com/store/apps/details?id=com.tanokahome25.tenea&hl=es_419",
       "tags": ["I+D", "IA Agent", "React Native", "MySQL", "ApiREST"]
     },
     {
@@ -16,7 +16,7 @@
     },
     {
       "titulo": "FudiCode",
-      "descripcion": "Cartas digitales para restaurantes vía código QR. Cuatro plantillas visuales, pagos con Stripe y panel de gestión en tiempo real con Firebase.",
+      "descripcion": "Cartas digitales para restaurantes vía código QR. Varias plantillas visuales, pagos con Stripe y panel de gestión en tiempo real con Firebase.",
       "imagen": "images/fudicode.png",
       "link": "https://fudicode.es",
       "tags": ["Firebase", "Stripe", "Cloudflare Pages"]
@@ -25,7 +25,7 @@
       "titulo": "StayRules",
       "descripcion": "Normas de la casa por QR para anfitriones de Airbnb. Flujo de pago completo, emails automáticos y panel de administración.",
       "imagen": "images/stayrules.png",
-      "link": "",
+      "link": "https://stayrules.dev-frontaltech.workers.dev",
       "tags": ["Firebase", "Stripe", "Resend"]
     },
     {
@@ -47,14 +47,14 @@
       "descripcion": "Proyecto de I+D: asistente conversacional por voz basado en un agente de IA capaz de mantener una conversación natural.",
       "imagen": "images/agent.png",
       "link": "",
-      "tags": ["I+D", "IA", "Agentes", "Voz"]
+      "tags": ["I+D", "IA Agentes", "Python", "Voz"]
     },
     {
       "titulo": "PawTag",
       "descripcion": "Placas de identificación para perros con QR. Automatización con formularios, hoja de cálculo y generación de páginas dinámicas por mascota.",
       "imagen": "images/pawtag.png",
       "link": "https://devfrontaltech.github.io/pagina-chapas/",
-      "tags": ["n8n", "GitHub", "Stripe"]
+      "tags": ["n8n/Make", "GitHub", "Stripe"]
     },
     {
       "titulo": "ParkSpot",
