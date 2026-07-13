@@ -143,6 +143,36 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; text-transform:upper
 /* ============ FOOTER ============ */
 .site-footer{ text-align:center; padding:2rem 1.25rem; font-family:var(--font-mono); font-size:0.76rem; }
 
+/* ============ LIGHTBOX (previsualización de proyecto) ============ */
+.project-card{ cursor:pointer; }
+.lightbox{
+  position:fixed; inset:0; z-index:100; display:none;
+  align-items:center; justify-content:center;
+  padding:1.5rem; background:rgba(17,17,17,0.78);
+}
+.lightbox.is-open{ display:flex; }
+.lightbox__box{
+  background:#fff; border:var(--border); box-shadow:10px 10px 0 var(--ink);
+  max-width:760px; width:100%; max-height:88vh; overflow-y:auto; position:relative;
+}
+.lightbox__close{
+  position:absolute; top:0.8rem; right:0.8rem; z-index:2;
+  width:38px; height:38px; border:2.5px solid var(--ink); background:#fff;
+  font-family:var(--font-mono); font-size:1rem; line-height:1; cursor:pointer;
+  box-shadow:3px 3px 0 var(--ink); transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.lightbox__close:hover{ transform:translate(-2px,-2px); box-shadow:5px 5px 0 var(--ink); background:var(--yellow); }
+.lightbox__media{ aspect-ratio:16/10; border-bottom:var(--border); background:linear-gradient(135deg,#EFEADA,#FBF8EE); position:relative; overflow:hidden; }
+.lightbox__media img{ width:100%; height:100%; object-fit:cover; }
+.lightbox__fallback{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.8rem; color:var(--ink-dim); text-align:center; padding:1rem; }
+.lightbox__body{ padding:1.6rem 1.8rem 1.8rem; }
+.lightbox__cat{ display:inline-block; font-family:var(--font-mono); font-size:0.7rem; text-transform:uppercase; padding:0.25rem 0.6rem; border:2px solid var(--ink); margin-bottom:0.8rem; }
+.lightbox__title{ font-size:1.6rem; margin:0 0 0.8rem; }
+.lightbox__desc{ color:var(--ink-dim); font-size:0.98rem; margin:0 0 1.2rem; }
+.lightbox__tags{ display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1.3rem; }
+.lightbox__tag{ font-family:var(--font-mono); font-size:0.7rem; padding:0.25rem 0.6rem; border:1.5px solid var(--ink); }
+@media (max-width:600px){ .lightbox__title{ font-size:1.3rem; } }
+
 /* ============ RESPONSIVE ============ */
 @media (max-width:900px){
   .hero__inner{ grid-template-columns:1fr; }
@@ -276,6 +306,19 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; text-transform:upper
 
 </main>
 
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lightbox__box" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Cerrar previsualización">✕</button>
+    <div class="lightbox__media" id="lightboxMedia"></div>
+    <div class="lightbox__body">
+      <span class="lightbox__cat" id="lightboxCat"></span>
+      <h3 class="lightbox__title" id="lightboxTitle"></h3>
+      <p class="lightbox__desc" id="lightboxDesc"></p>
+      <div class="lightbox__tags" id="lightboxTags"></div>
+    </div>
+  </div>
+</div>
+
 <footer class="site-footer"><p>© 2026 Joel Cosp. Construido con HTML, CSS y JS.</p></footer>
 
 <script>
@@ -317,6 +360,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const hasLink = project.link && project.link.trim().length > 0;
     const hasImage = project.imagen && project.imagen.trim().length > 0;
     const hasDesc = project.descripcion && project.descripcion.trim().length > 0;
+
+    card.dataset.titulo = project.titulo || '';
+    card.dataset.descripcion = project.descripcion || '';
+    card.dataset.imagen = project.imagen || '';
+    card.dataset.catLabel = meta.label;
+    card.dataset.catClass = meta.className;
+    card.dataset.tags = JSON.stringify(project.tags || []);
 
     card.innerHTML = `
       <div class="project-card__media">
@@ -360,6 +410,52 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(err);
       grid.innerHTML = '<p style="font-family:var(--font-mono); font-size:0.85rem;">No se pudieron cargar los proyectos. Sirve este sitio con un servidor local o despliégalo para que el fetch funcione.</p>';
     });
+
+  /* ---- Lightbox: previsualización de proyecto ---- */
+  const lightbox = document.getElementById('lightbox');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxMedia = document.getElementById('lightboxMedia');
+  const lightboxCat = document.getElementById('lightboxCat');
+  const lightboxTitle = document.getElementById('lightboxTitle');
+  const lightboxDesc = document.getElementById('lightboxDesc');
+  const lightboxTags = document.getElementById('lightboxTags');
+
+  function openLightbox(card) {
+    const { titulo, descripcion, imagen, catLabel, catClass, tags } = card.dataset;
+    const hasImage = imagen && imagen.trim().length > 0;
+    const hasDesc = descripcion && descripcion.trim().length > 0;
+    const tagList = JSON.parse(tags || '[]');
+
+    lightboxMedia.innerHTML = hasImage
+      ? `<img src="${escapeHtml(imagen)}" alt="${escapeHtml(titulo)}" onerror="this.style.display='none'; this.parentElement.querySelector('.lightbox__fallback')?.remove(); this.parentElement.insertAdjacentHTML('beforeend','<div class=\\'lightbox__fallback\\'>🖼️ Imagen no disponible</div>');">`
+      : `<div class="lightbox__fallback">🖼️ Imagen no disponible</div>`;
+    lightboxCat.textContent = catLabel;
+    lightboxCat.className = `lightbox__cat project-card__cat--${catClass}`;
+    lightboxTitle.textContent = titulo;
+    lightboxDesc.style.display = hasDesc ? 'block' : 'none';
+    lightboxDesc.textContent = descripcion;
+    lightboxTags.innerHTML = tagList.map(t => `<span class="lightbox__tag">${escapeHtml(t)}</span>`).join('');
+
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  grid.addEventListener('click', e => {
+    if (e.target.closest('.project-card__link')) return; // el enlace "Abrir →" sigue funcionando normal
+    const card = e.target.closest('.project-card');
+    if (card) openLightbox(card);
+  });
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox(); });
+
 
   function observeReveals() {
     const items = document.querySelectorAll('.reveal:not(.is-visible)');
