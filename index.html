@@ -387,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="project-card__tags">${tagsHtml}</div>
         ${hasLink
           ? `<a class="project-card__link" href="${escapeHtml(project.link)}" target="_blank" rel="noopener">Abrir →</a>`
-          : `<span class="project-card__link is-disabled">Próximamente</span>`}
+          : ''}
       </div>`;
     return card;
   }
