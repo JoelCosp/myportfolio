@@ -124,6 +124,13 @@
     {
       "titulo": "Cartel publicitario",
       "descripcion": "",
+      "imagen": "images/poster-verde.png",
+      "link": "",
+      "tags": ["Diseño", "Ilustración", "Narrativa"]
+    },
+    {
+      "titulo": "Cartel publicitario",
+      "descripcion": "",
       "imagen": "images/youwe.png",
       "link": "",
       "tags": ["Diseño", "Ilustración", "Narrativa"]
