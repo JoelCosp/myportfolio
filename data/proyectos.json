@@ -73,6 +73,13 @@
   ],
   "proyectos_diseno": [
     {
+      "titulo": "UX/UI",
+      "descripcion": "",
+      "imagen": "images/nestia.png",
+      "link": "",
+      "tags": ["UX/UI"]
+    },
+    {
       "titulo": "Cartel publicitario",
       "descripcion": "",
       "imagen": "images/trazos.png",
