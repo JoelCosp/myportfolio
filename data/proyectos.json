@@ -75,6 +75,13 @@
     {
       "titulo": "UX/UI",
       "descripcion": "",
+      "imagen": "images/moveo.png",
+      "link": "",
+      "tags": ["UX/UI"]
+    },
+    {
+      "titulo": "UX/UI",
+      "descripcion": "",
       "imagen": "images/nestia.png",
       "link": "",
       "tags": ["UX/UI"]
