@@ -1,4 +1,27 @@
 {
+  "proyectos_marketing": [
+    {
+      "titulo": "Deutsche Lotterie",
+      "descripcion": "Campaña de telemarketing por correo electrónico de una lotería alemana con sorteo especial y botes millonarios.",
+      "imagen": "images/camp1.jfif",
+      "link": "",
+      "tags": ["Lotería", "Telemarketing", "Alemania"]
+    },
+    {
+      "titulo": "Synergy Core",
+      "descripcion": "Campaña de software y tecnología enfocada en la productividad y la presentación del nuevo Synergy OS.",
+      "imagen": "images/camp2.jfif",
+      "link": "",
+      "tags": ["Tecnología", "Software", "Productividad"]
+    },
+    {
+      "titulo": "Excelerate",
+      "descripcion": "Campaña de software ERP empresarial orientada a la optimización de procesos y la eficiencia corporativa.",
+      "imagen": "images/camp3.jfif",
+      "link": "",
+      "tags": ["ERP", "Empresas", "Software"]
+    }
+  ]
   "proyectos_programacion": [
     {
       "titulo": "Tanoka Home",
