@@ -290,6 +290,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; text-transform:upper
     <div class="section__head reveal"><span class="section__num">03</span><h2>Proyectos</h2></div>
     <div class="filters reveal" role="tablist" aria-label="Filtrar proyectos">
       <button class="filter-btn is-active" data-filter="todos" role="tab" aria-selected="true">Todos</button>
+      <button class="filter-btn" data-filter="proyectos_marketing" role="tab" aria-selected="false">Marketing</button>
       <button class="filter-btn" data-filter="proyectos_programacion" role="tab" aria-selected="false">Programación</button>
       <button class="filter-btn" data-filter="proyectos_diseno" role="tab" aria-selected="false">Diseño</button>
       <button class="filter-btn" data-filter="proyectos_videojuegos" role="tab" aria-selected="false">Videojuegos & RV</button>
@@ -346,6 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let dataset = {};
 
   const CATEGORY_LABELS = {
+    proyectos_marketing: { label: 'Marketing', className: 'marketing' },
     proyectos_programacion: { label: 'Programación', className: 'programacion' },
     proyectos_diseno: { label: 'Diseño', className: 'diseno' },
     proyectos_videojuegos: { label: 'Videojuegos & RV', className: 'videojuegos' }
