@@ -29,9 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let dataset = {};
 
   const CATEGORY_LABELS = {
+    proyectos_marketing: { label: 'Marketing', className: 'marketing' },
     proyectos_programacion: { label: 'Programación', className: 'programacion' },
     proyectos_videojuegos: { label: 'Videojuegos & RV', className: 'videojuegos' },
-    proyectos_diseno: { label: 'Diseño', className: 'diseno' }
+    proyectos_diseno: { label: 'Diseño', className: 'diseno' },
   };
 
   function buildCard(project, categoryKey) {
