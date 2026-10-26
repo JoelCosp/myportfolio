@@ -342,6 +342,7 @@ h1,h2,h3{
 .project-card__cat--diseno{ color: var(--teal); }
 .project-card__cat--videojuegos{ color: var(--violet); }
 .project-card__cat--programacion{ color: var(--accent); }
+.project-card__cat--marketing{ color: var(--accent); }
 .project-card__title{ font-size:1.3rem; margin: 0.5rem 0 0.65rem; }
 .project-card__desc{ color: var(--ink-dim); font-size:0.92rem; margin: 0 0 1.1rem; }
 .project-card__tags{ display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom: 1.1rem; }
