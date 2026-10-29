@@ -167,6 +167,22 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; text-transform:upper
 
 .projects__grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(1.75rem,3vw,2.5rem); transition:opacity .18s ease, translate .18s ease; perspective:1200px; }
 .projects__grid.is-leaving{ opacity:0; translate:0 14px; }
+
+/* Galería compacta (filtro Diseño): solo imagen, 4 columnas */
+.projects__grid--gallery{ grid-template-columns:repeat(4,1fr); gap:1.1rem; }
+.project-card--tile{ rotate:0deg !important; box-shadow:var(--shadow-sm); }
+.project-card--tile:hover{ box-shadow:7px 7px 0 var(--pink); }
+.project-card--tile .project-card__media{ aspect-ratio:1/1; border-bottom:none; }
+.project-card--tile .project-card__body{ display:none; }
+.project-card--tile .project-card__media::after{ content:"Ver +"; }
+@media (max-width:900px){ .projects__grid--gallery{ grid-template-columns:repeat(3,1fr); } }
+@media (max-width:600px){ .projects__grid--gallery{ grid-template-columns:repeat(2,1fr); gap:.8rem; } }
+
+/* Botón "ver más" */
+.more{ display:flex; flex-direction:column; align-items:center; gap:1rem; margin-top:3rem; }
+.more[hidden]{ display:none; }
+.more__count{ margin:0; font-family:var(--font-mono); font-size:.8rem; text-transform:uppercase; }
+.more.is-in{ animation:fadeUp .5s var(--ease-out) both; }
 .project-card{ background:#fff; border:var(--border); box-shadow:var(--shadow); transition: transform 0.15s ease-out, box-shadow 0.2s ease, rotate .3s var(--ease-out); cursor:pointer; will-change:transform; }
 .project-card:nth-child(3n+1){ rotate:-1deg; }
 .project-card:nth-child(3n+2){ rotate:1deg; }
@@ -376,6 +392,10 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; text-transform:upper
       <button class="filter-btn" data-filter="proyectos_videojuegos" role="tab" aria-selected="false">Videojuegos & RV</button>
     </div>
     <div id="proyectos-grid" class="projects__grid" aria-live="polite"></div>
+    <div class="more" id="moreWrap" hidden>
+      <p class="more__count" id="moreCount"></p>
+      <button class="btn btn--primary magnetic" id="moreBtn" type="button">Ver más</button>
+    </div>
   </section>
 
   <section id="contacto" class="section contact">
@@ -607,15 +627,63 @@ document.addEventListener('DOMContentLoaded', () => {
     if (fb) fb.style.display = 'flex';
   }, true);
 
+  /* Paginación: se muestran N en el orden del JSON y el usuario decide si ve más */
+  const PAGE_CARDS = 6;     // cartas grandes (Todos, Marketing, Programación, Videojuegos)
+  const PAGE_GALLERY = 8;   // galería compacta (Diseño)
+  const moreWrap = $('#moreWrap');
+  const moreBtn = $('#moreBtn');
+  const moreCount = $('#moreCount');
+  let currentList = [], shown = 0, pageSize = PAGE_CARDS, isGallery = false;
+
+  function renderBatch() {
+    const batch = currentList.slice(shown, shown + pageSize);
+    batch.forEach(({ p, key }, i) => {
+      const card = buildCard(p, key, i);
+      if (isGallery) card.classList.add('project-card--tile');
+      grid.appendChild(card);
+    });
+    shown += batch.length;
+    observeReveals();
+    updateMore();
+  }
+
+  function updateMore() {
+    const total = currentList.length;
+    const remaining = total - shown;
+    if (total <= pageSize) { moreWrap.hidden = true; return; }
+    moreWrap.hidden = false;
+    moreWrap.classList.remove('is-in'); void moreWrap.offsetWidth; moreWrap.classList.add('is-in');
+    if (remaining > 0) {
+      moreCount.textContent = `Mostrando ${shown} de ${total}`;
+      moreBtn.textContent = `Ver más (+${Math.min(pageSize, remaining)})`;
+      moreBtn.dataset.mode = 'more';
+    } else {
+      moreCount.textContent = `Los ${total} proyectos`;
+      moreBtn.textContent = 'Ver menos ↑';
+      moreBtn.dataset.mode = 'less';
+    }
+  }
+
   function render(filter = 'todos') {
     grid.innerHTML = '';
     const categories = filter === 'todos' ? Object.keys(dataset) : [filter];
-    let i = 0;
-    categories.forEach(key => (dataset[key] || []).forEach(p => {
-      grid.appendChild(buildCard(p, key, i++));
-    }));
-    observeReveals();
+    currentList = categories.flatMap(key => (dataset[key] || []).map(p => ({ p, key })));
+    isGallery = filter === 'proyectos_diseno';
+    pageSize = isGallery ? PAGE_GALLERY : PAGE_CARDS;
+    grid.classList.toggle('projects__grid--gallery', isGallery);
+    shown = 0;
+    renderBatch();
   }
+
+  moreBtn.addEventListener('click', () => {
+    if (moreBtn.dataset.mode === 'less') {
+      const active = $('.filter-btn.is-active');
+      render(active ? active.dataset.filter : 'todos');
+      $('#proyectos').scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+    } else {
+      renderBatch();
+    }
+  });
 
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
